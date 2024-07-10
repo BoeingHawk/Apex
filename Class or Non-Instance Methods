@@ -1,0 +1,46 @@
+//Class Declaration
+
+Public Class Bird {
+
+//Declaration of Class Variables 
+
+Public Static String name = 'Crow';
+Public Static Integer age = 2;
+
+
+// Method Declaration
+Public Static Void Fly()
+{
+System.debug(Bird.name + ' is flying');
+}
+
+
+}
+
+
+//Explanation
+
+// The above class is having Class Variables / Non-instance Variables along with an Class Method.
+// Hence, there is no requirement to create a new object to run the class and print the output
+// we can directly call the method with the classname 
+
+
+//Use of the Static keyword -
+//The static keyword is used to associate a variable or method with a class rather than a specific instance of the class. 
+
+// Use of Class Variables - One time memory allocation
+
+
+
+//code in the Anon Window
+
+//Bird.Fly();
+
+
+//output
+//Crow is flying
+
+
+
+
+
