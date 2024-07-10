@@ -1,0 +1,25 @@
+//Instance methods or Object Methods
+
+
+//class declaration
+public class Dog {
+
+
+// varibales declaration
+public String name = 'Roger';
+public Integer age = 5;
+    
+
+// method declaration
+
+// public = Access Modifier 
+// void = return type
+// Bark() = Name of the method along with the parameters in the brackets if any
+
+public void Bark(){
+    system.debug(name+' is barking');
+}
+
+}
+
+
