@@ -1,18 +1,18 @@
-//Instance methods or Object Methods
+//Instance methods or Object Methods 
 
 
-//class declaration
-public class Dog {
+//Class declaration
+Public Class Dog {
 
 
-// varibales declaration
-public String name = 'Roger';
-public Integer age = 5;
+//Instance varibales declaration
+Public String name = 'Roger';
+Public Integer age = 5;
     
 
 // method declaration
 
-// public = Access Modifier 
+// Public = Access Modifier 
 // void = return type
 // Bark() = Name of the method along with the parameters in the brackets if any
 
@@ -23,3 +23,6 @@ public void Bark(){
 }
 
 
+//As the method is an instance method in a class, so Instance Variables will be used.
+
+// Declaration of the Instance Variables (variables that are accessed by creating an object first and that can't be access directly)
