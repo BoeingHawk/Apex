@@ -1,0 +1,53 @@
+// Actual Code
+
+
+Public Class Dog 
+{
+
+Public String name = 'Roger';
+
+Public Void Bark()
+{
+System.debug('name of the dog ='+name);
+}
+
+}
+
+
+//Code to be exectued in anonymous window:
+
+//Create a constructor of the Dog class, so that the value of the instance variable can be printed in the output
+
+Dog d = new Dog(){
+d.Bark();
+
+}
+
+//Output
+
+//name of the dog = Roger
+
+
+
+
+//explanation of the above code
+
+//syntax of a Class in Apex
+
+
+// <access modifier> <Class> Keyword  <class name>
+
+// { starting bracket  
+
+// Declaration of the Instance Variables (variables that are accessed by creating an object first and that can't be access directly)
+
+public string name = 'Pulkit';
+
+//method declaration
+
+// } ending bracket  
+
+
+
+
+
