@@ -57,14 +57,24 @@ System.debug(Fruits);
 //Get Index
 System.debug(Fruits.get(3));
 
-//Add new list to existing list
-
 //new List
 
 List<String> Fruits1 = new List<String>{'Grapes','Strawberry','DragonFruit'};
 
+
+//Add new list to existing list
 Fruits.addAll(Fruits1);
 System.debug(Fruits);
+
+
+//Clear
+Fruits.clear();
+System.debug(Fruits);
+
+//Clone
+Fruits.clone();
+System.debug(Fruits);
+
 
 
 
