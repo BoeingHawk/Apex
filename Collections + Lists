@@ -1,0 +1,71 @@
+// Collections in Apex
+
+// List - A list is a collection of Ordered Elements.
+
+// Data Types Supported - Primitive and Non-Primitive
+
+// Sytanx:
+
+// List<Data Type> vraiable name = new List<Data Type>();
+
+
+// 1) Declaration & Memory Allocation 
+// main one to be used regularly
+List<String> Fruits = new <string>();
+
+
+// 2) Declaration, Memory Allocation & Value Assignment
+List<String> Fruits = new List<String>{'Apple','Banana','Orange'};
+
+
+// 3) Declaration Only
+
+List<String> Fruits; // value By-default = Null
+
+Fruits = new List<String>(); // Memory Allocation
+
+Fruits = new List<String>{'Apple','Banana','Orange'} // Memory Allocation & Value Assignment
+
+
+
+// Methods in Lists
+
+
+List<String> Fruits = new List<String> {'PineApple','Apple','Banana','Orange'};
+
+//sort
+Fruits.sort();
+System.debug('Sorted List'+Fruits);
+
+
+//size
+System.debug(Fruits.size());
+
+//Add Element
+Fruits.add('Kiwi');
+System.debug(Fruits);
+
+
+//Remove Element from index
+Fruits.remove(0);
+System.debug(Fruits);
+
+//Set Element
+Fruits.set(3,'Cherry');
+System.debug(Fruits);
+
+//Get Index
+System.debug(Fruits.get(3));
+
+//Add new list to existing list
+
+//new List
+
+List<String> Fruits1 = new List<String>{'Grapes','Strawberry','DragonFruit'};
+
+Fruits.addAll(Fruits1);
+System.debug(Fruits);
+
+
+
+
