@@ -1,0 +1,97 @@
+DEV Doc's Link: https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/langCon_apex_collections_sets.htm
+SFDC Panther Link: https://www.pantherschools.com/how-to-use-collections-in-salesforce-apex/
+
+// Set in Salesforce
+
+
+// Set is an unordered set of collections elements. 
+// Meaning of unordered = will not change the order of the input & automatically sort the elements
+
+
+// Set does not contain the duplicate element: Only contains UNIQUE elements
+
+// You can not access elements using indices: can be accessed via Values only
+
+
+//Syntax:
+
+
+// 1) Declaration & Memory Allocation 
+
+//Set<String> colorSet =  new Set<String>();
+
+
+// 2) Declaration, Memory Allocation & Value Assignment
+
+Set<String> colorSet =  new Set<String>{'Red','Green','Blue','Black','Yellow','Orange'};
+System.debug(colorSet);
+
+
+ // 3) Declaration Only
+//Set<String> colorSet;
+
+
+
+
+//Methods in Set
+
+//add(element)
+colorSet.add('White');
+System.debug('Updated Set with White Color: '+colorSet);
+
+//contains(element)
+System.debug('Set contains Black color or not:'+colorSet.contains('Black'));
+
+//size
+System.debug('Size of the List: '+colorSet.size());
+
+//isEmpty
+Boolean isEmpty = colorSet.isEmpty();
+System.debug('is the List empty: '+isEmpty);
+
+//remove(value)
+colorSet.remove('White');
+System.debug('Updated Set without White Color: '+colorSet);
+
+
+//new Set of Fruits
+Set<String> fruitSet = new Set<String>{'Banana','Apple'};
+
+
+//addAll - Example:1 Adding Set
+colorSet.addAll(fruitSet);
+System.debug('Fruits Added from Set: '+colorSet);
+ 
+
+//new List of Fruits
+List<String> fruitList = new List<String>{'Grapes','Kiwi'};
+
+
+//addAll - Example:2 Adding List
+colorSet.addAll(fruitList);
+System.debug('Fruits Added from List: '+colorSet);
+
+
+//new Set of Integers
+Set<Integer> numSet = new Set<Integer>{4,9,7,6,1};
+
+
+//addAll - Example:3 Adding Set
+//colorSet.addAll(numSet);
+//System.debug('Integers Added from Set: '+colorSet);
+//Gives error
+
+
+//Adding duplicates
+Set<String> colorsSet = new Set<String>{'black','Red', 'Black', 'Blue','Blue', 'Green','Black'};
+System.debug(colorsSet + '\n ');
+
+
+//clear()
+colorsSet.clear();
+System.debug(colorsSet+ '\n ');
+
+
+
+
+
