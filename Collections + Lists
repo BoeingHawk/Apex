@@ -1,8 +1,37 @@
 // Collections in Apex
 
-// List - A list is a collection of Ordered Elements.
+//Collections: Type of Variable in Apex, that cab store multiple values 
+
+// List - A list is a collection of Ordered Elements. 
+
+//Meaning of Orderd  - The order in which you will enter the elements in the list.
+Example: If you will enter Banana first & then Apple, it will not change the order or will not sort the list, elements would be as it is in the list.
+
+//List can contain duplicate values.
 
 // Data Types Supported - Primitive and Non-Primitive
+
+
+
+
+
+
+
+// When to Use List
+
+/*
+Ordering the element is important
+Need of accessing the element by indexes
+Sorting is important
+Need to create records inside Salesforce sObjects
+Need to store the records from the SOQL Queries
+You need to store multiple dimensions like Matrix
+*/
+
+
+
+
+
 
 // Sytanx:
 
