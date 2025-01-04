@@ -1,0 +1,54 @@
+// Instance vs Static (Non-Instance) Methods 
+
+
+
+//Static Method is used as the use is to calcualte total cookies produced in the entire factory
+
+
+// Class to calculate the total number of cookies created by the whole factor 
+
+//class declration
+
+public class TotalCookies {
+
+
+//static variable declaration
+public static Integer CountofCookies = 0;    
+    
+    
+//Static method declaration
+public static void cookieCount(Integer count)
+{
+     CountofCookies += count;
+     System.debug('Total Number of Cookies made in the factory: '+CountofCookies);
+
+}
+
+}
+
+
+
+/*
+// Instance Method
+
+//Use - To calculate cookies made by each worker in the factory
+
+
+//class declaration
+
+public class FactoryWorker{
+
+
+// instance variable declaration    
+public Integer CookieWorker = 0;
+
+
+// instance method declaration
+    public void Cookies_Per_Worker(Integer count){
+        CookieWorker += count;
+        System.debug('Cookies made by worker is: '+CookieWorker);
+    }
+
+}
+
+*/
