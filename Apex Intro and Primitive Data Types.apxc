@@ -1,0 +1,81 @@
+//print in apex
+System.debug('Hello Pulkit');
+
+//Data Types in apex
+
+
+// Primitive - Can hold single value and are immutable (means value can't be changed)
+
+
+//Integer
+Integer age = 26;
+
+//String
+String name = 'Pulkit';
+
+//Decimal
+Decimal weight = 80.0;
+
+//Boolean
+Boolean is_Developer = true;
+
+//Rest of the variables are - Date,DateTime,ID,Double
+
+
+
+//Classes in Apex
+
+Public Class Employee
+{
+
+
+//variable declaration
+
+//Integer
+Integer age = 26;
+
+//String
+String name = 'Pulkit';
+
+//Decimal
+Decimal weight = 80.0;
+
+//Boolean
+Boolean is_Developer = true;
+
+
+Public void Data()
+{
+System.debug('Name of the emplyee: '+name);
+
+System.debug('Age of the emplyee: '+age);
+
+System.debug('Weight of the emplyee: '+weight);
+
+System.debug('Is employee a Developer: '+age);
+
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
