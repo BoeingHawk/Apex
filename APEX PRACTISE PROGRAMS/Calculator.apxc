@@ -1,0 +1,42 @@
+public class Calculator {
+
+    public static void Calculate(String operation,decimal num1,decimal num2){
+        
+        Decimal result = 0;
+        
+        switch on operation{
+		
+            when 'addition'{
+                result = num1 + num2;
+				System.debug(result);
+            }
+
+            when 'subtraction'{
+                result = num1 - num2;
+				System.debug(result);
+            }
+
+
+            when 'multiplication'{
+                result = num1 * num2;
+				System.debug(result);
+            }
+
+
+            when 'division'{
+                if(num2 != 0){
+                result = num1 / num2;
+				System.debug(result);
+                }
+
+				else
+				System.debug('Cannot divide by zero');
+            }
+            when else{
+                System.debug('Invalid Operation');
+                    }
+        }
+    }
+
+
+}
