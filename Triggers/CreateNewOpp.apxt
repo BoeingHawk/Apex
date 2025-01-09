@@ -1,0 +1,24 @@
+// trigger declaration
+trigger NewOpportunity on Account (after insert, after Update) {
+
+// also the trigger should run only in AfterInsert and AfterUpdate context
+    if(Trigger.isInsert && Trigger.isAfter){
+        
+// create a list to add opportunity
+List<Opportunity> oppList = new List<Opportunity>();
+
+        for(Account acc : Trigger.New){
+            if(acc.Industry == 'Agriculture'){
+                oppList.add(new Opportunity(Name = acc.Name + 'Opportunity',
+											StageName = 'Prospecting', 
+											Amount = 0, 
+											CloseDate = System.Today() + 90));
+            }
+        }
+		
+        if(!oppList.isEmpty()){
+            insert oppList;
+        }
+// iterate over a for loop to find all the accounts that were newly created or updated
+    }
+}
