@@ -1,0 +1,43 @@
+trigger AccountTrigger on Account (after insert, after update) {
+    // Condition that the code should run only after account is inserted
+    if(Trigger.isInsert && Trigger.isAfter) {
+        List<Opportunity> listOfOpportunities = new List<Opportunity>();
+        
+        // we will use for loop to handle bulk insertion
+        for(Account acc : Trigger.new) {
+            // If 'Industry' field on Account has the values as 'Agriculture', add new Opportunity in the list 'listOfOpportunities'
+            if(acc.Industry == 'Agriculture') {
+                listOfOpportunities.add(new Opportunity(Name = acc.Name+' Opp',
+                                                        AccountId = acc.Id,
+                                                        StageName = 'Prospecting', 
+                                                        Amount = 0, 
+                                                        CloseDate = System.today() + 90));
+            }
+        }
+        // Insert 'listOfOpportunities' if the list is not empty
+        if(listOfOpportunities.isEmpty() == false) {
+            insert listOfOpportunities;
+        }
+    }
+    
+    // Condition that the code should run only after account is updated
+    if(Trigger.isUpdate && Trigger.isAfter) {
+        List<Opportunity> listOfOpportunities = new List<Opportunity>();
+        
+        // we will use for loop to handle bulk updation
+        for(Account acc : Trigger.new) {
+            // Check if the new updated value is different from old in Industry field and is 'Agriculture'
+            if(acc.Industry != Trigger.oldMap.get(acc.Id).Industry && acc.Industry == 'Agriculture') {
+                listOfOpportunities.add(new Opportunity(Name = acc.Name+' Opp',
+                                                        AccountId = acc.Id,
+                                                        StageName = 'Prospecting', 
+                                                        Amount = 0, 
+                                                        CloseDate = System.today() + 90));
+            }
+        }
+        // Insert 'listOfOpportunities' if the list is not empty
+        if(listOfOpportunities.isEmpty() == false) {
+            insert listOfOpportunities;
+        }
+    }
+}
