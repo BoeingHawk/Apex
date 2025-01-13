@@ -1,0 +1,16 @@
+trigger updateMailingCity on Account (after update) {
+    if (Trigger.isAfter && Trigger.isUpdate) {
+        List<Contact> contactList = new List<Contact>();
+        for (Account acc : Trigger.New) {
+            if (acc.BillingCity != Trigger.oldMap.get(acc.Id).BillingCity) {
+                contactList.addAll([SELECT Id, MailingCity, AccountId FROM Contact WHERE AccountId = :acc.Id]);
+            }
+        }
+        if (!contactList.isEmpty()) {
+            for (Contact con : contactList) {
+                con.MailingCity = Trigger.newMap.get(con.AccountId).BillingCity;
+            }
+            update contactList;
+        }
+    }
+}
