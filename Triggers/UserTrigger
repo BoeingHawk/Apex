@@ -1,0 +1,31 @@
+trigger UserTrigger on User (after insert) {
+    if(Trigger.isAfter) {
+        if(Trigger.isInsert) {
+            UserTriggerHandler.addAdminToPublicGroup(Trigger.new);
+        }
+    }
+}
+
+
+public class UserTriggerHandler {
+    public static void addAdminToPublicGroup(List<User> newUsers) {
+        // Get Id of Public group for Admins
+        Group adminGroup = [SELECT Id FROM Group WHERE DeveloperName = 'Admins' AND Type = 'Regular' LIMIT 1];
+        
+        // Perform operation of adding Admin users to the group only when Group is present in salesforce
+        if(adminGroup != NULL) {
+            List<GroupMember> groupMembers = new List<GroupMember>();
+            
+            // Get admin proifle and check for all users,
+            // if user profile id is same as the admin profile id AND user is active then only create a new group member
+            Profile adminProfile = [SELECT Id FROM Profile WHERE Name = 'System Administrator' LIMIT 1];
+            for(User user : newUsers) {
+                if(user.ProfileId == adminProfile.Id && user.IsActive == true) {
+                    groupMembers.add(new GroupMember(GroupId = adminGroup.Id,
+                                                    UserOrGroupId = user.Id));
+                }
+            }
+            insert groupMembers;
+        }
+    }
+}
