@@ -1,0 +1,66 @@
+Parent to Child and Child to Parent Trigger Scenarios in Salesforce
+Parent-to-Child Trigger Scenarios:
+| Scenario | Action on Parent | Impact on Child |
+Trigger Behavior on Child |
+|-------------------------|------------------|--------------------------------------------------------------------------------|-------
+--------------------|
+| Insert | Parent is inserted | No automatic action on child unless explicitly coded.
+ | No trigger on child unless child records are created. |
+| Update | Parent is updated | No automatic action on child unless explicitly coded or
+through declarative tools (e.g., Flows). | No trigger on child unless child records are updated. |
+| Delete | Parent is deleted | In a master-detail relationship, child records are automatically
+deleted. | before delete and after delete triggers fire. |
+| Undelete | Parent is undeleted | In a master-detail relationship, child records are restored.
+ | after undelete trigger fires. |
+| Cascade via Roll-Up | Parent has roll-up field | Roll-up summary changes on the parent but does
+not directly trigger child records. | No trigger unless child records are explicitly updated.|
+| Explicit Cascade Logic | Parent trigger updates child records | Child records are updated as per the
+parent trigger logic. | Child triggers fire as per updates. |
+Child-to-Parent Trigger Scenarios:
+| Scenario | Action on Child | Impact on Parent |
+Trigger Behavior on Parent |
+|-------------------------|-----------------|--------------------------------------------------------------------------------|--------
+-------------------|
+| Insert | Child is inserted | Parent can be updated explicitly in the child trigger logic. 
+ | Parent trigger does not fire unless updated explicitly.|
+| Update | Child is updated | Parent can be updated explicitly in the child trigger logic (e.g.,
+roll-up or manual update). | Parent trigger does not fire unless updated explicitly.|
+| Delete | Child is deleted | Parent can be updated explicitly in the child trigger logic (e.g.,
+roll-up field recalculation). | Parent trigger does not fire unless updated explicitly.|
+| Undelete | Child is undeleted | Parent can be updated explicitly in the child trigger logic.
+ | Parent trigger does not fire unless updated explicitly.|
+| Cascade via Roll-Up | Child record changes | Parent roll-up summary field is updated
+automatically (declarative). | No parent trigger unless explicitly updated. |
+| Explicit Cascade Logic | Child trigger updates parent records | Parent records are updated as per
+the child trigger logic. | Parent triggers fire if explicitly updated. |
+Observations and Patterns:
+Parent-to-Child Observations:
+1. SOQL with Subqueries: Often used to fetch related child records in a single query.
+2. DML on Child Records: Actions on the parent often lead to bulk DML operations on child records.
+3. Cascade Operations in Master-Detail: Parent actions like delete or undelete automatically
+cascade to child records.
+4. Use of Aggregation: Parent triggers often aggregate data from child records.
+5. Static Variables to Prevent Recursive Updates: Used to prevent infinite loops.
+Child-to-Parent Observations:
+1. Use of SOQL to Fetch Parent Records: Requires querying parent records explicitly for updates.
+2. Use of Maps for Efficient Parent Updates: Maps are essential for grouping child records by
+parent.
+3. Roll-Up Summary Fields Simplify Many Scenarios: Roll-up fields often replace custom trigger
+logic in master-detail relationships.
+4. Use of Aggregate Functions: Often involves aggregate functions like SUM or COUNT for parent
+updates.
+5. Parent Trigger Firing: Child trigger updates on parent fire parent triggers.
+Comparison of Parent-to-Child and Child-to-Parent:
+| Aspect | Parent-to-Child | Child-to-Parent |
+|------------------------|------------------------------------------|------------------------------------------|
+| Key Data Structure | List/Set for handling multiple children. | Map for grouping children by parent
+ID. |
+| Common Query Style | Subquery to fetch child records. | Direct query to fetch parent
+records. |
+| Trigger Dependency | Parent actions may cascade to children. | Child actions may explicitly
+affect the parent. |
+| Automation Options | Roll-up fields automate calculations. | Roll-up fields only work for
+master-detail. |
+| Recursive Risk | Parent updates triggering child updates. | Child updates triggering parent
+updates. |
+| Best Practice | Use static variables to prevent loops.
