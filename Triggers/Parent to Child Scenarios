@@ -1,0 +1,69 @@
+//Insert on Parent and Insert on Child
+//Scenario - A new Account is inserted/created then a new opportunity should also be created related to that account
+
+
+Trigger AccountTrigger on Account(After insert){
+    If(Trigger.isInsert && Trigger.isAfter){
+	List<Opportunity> oppList = new List<Opportunity>();
+	
+        For(Account acc : Trigger.New){
+            Opportunity opp = new Opportunity(
+				Name = acc.Name + ' Opp',
+				StageName = 'Prospecting',
+                Amount = 0,
+                AccountId = acc.Id
+            );
+				oppList.add(opp);
+        }
+	insert oppList;
+    }
+}
+
+*/
+
+
+//Update on Parent and Insert on Child
+//Scenario - If Industry field on account is changed, then a new opportunity should be created
+
+/*
+
+Trigger AccountTrigger on Account(after update){
+ If(acc.Industry == 'Agriculture' && (Trigger.isAfter || Trigger.isUpdate && (acc.Industry != Trigger.oldMap.get(acc.Id).Industry))){
+	List<Opportunity> oppList = new List<Opportunity>();
+        For(Account acc : Trigger.New){
+           Opportunity opp = new Opportunity(
+           		Name = acc.Name + ' Opp',
+				StageName = 'Prospecting',
+                Amount = 0,
+                AccountId = acc.Id
+           );
+            oppList.add(opp);    
+            }
+		insert oppList;
+    }
+}
+
+*/
+
+
+//Update on Parent and Update on Child
+//Scenario - If Owner field on account is changed, then owner of the related contacts should also be changed
+
+
+Trigger AccountTrigger on Account(after update){
+    If(Trigger.isAfter && Trigger.isUpdate){
+	List<Id> accountIds = new List<Id>();
+        For(Account acc : Trigger.New){
+            if(acc.OwnerId != Trigger.oldMap.get(acc.Id).OwnerId){
+             accountIds.add(acc.Id);   
+            }
+        }
+		List<Contact> ContactList = [SELECT Id,OwnerId,AccountId from Contact WHERE AccountId IN : accountIds];
+        For(Contact con : ContactList){
+            con.OwnerId = Trigger.newMap.get(con.AccountId).OwnerId;
+		        contactList.add(con);
+        }
+	update contactList;
+    }
+}
+
