@@ -67,3 +67,23 @@ Trigger AccountTrigger on Account(after update){
     }
 }
 
+
+
+//Update of Parent and Update on Child
+//Whenever the Billing City of the Account record is updated the MailingCity field of the related Contacts should also get updated
+
+Trigger AccountTrigger on Account(after update){
+    If(Trigger.isUpdate && Trigger.isAfter){
+        List<Id> accountIds = new List<Id>();
+        For(Account acc : Trigger.New){
+            If(acc.BillingCity != Trigger.oldMap.get(acc.Id).BillingCity){
+                accountIds.add(acc.Id);
+            }
+        }
+		List<Contact> contactList = [SELECT Id,AccountId, MailingCity FROM Contact WHERE AccountId IN : accountIds];
+        For(Contact con : contactList){
+            con.MailingCity = Trigger.newMap.get(con.AccountId).BillingCity;
+        }
+		update contactList;
+    }
+}
