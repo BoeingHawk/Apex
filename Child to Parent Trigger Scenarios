@@ -1,0 +1,24 @@
+//Child to Parent Trigger Scenarios
+
+
+
+
+//Update on Chiuld and Update on Parent
+//Whenever the Amount field on an Opportunity is updated to a value greater than 100,000, the Account field High_Value_Opportunity__c (custom checkbox) should be set to true.
+
+
+trigger OpTrigger on Opportunity(after update){
+    If(Trigger.isUpdate && Trigger.isAfter){
+        Map<Id,Boolean> accountIds = new Map<Id,Boolean>();
+        For(Opportunity opp : Trigger.New){
+            If(opp.Amount > 100000 && opp.AccountId != null){
+                accountIds.put(opp.AccountId,True);
+            }
+        }
+		List<Account> accountList = [SELECT Id, High_Value_Opportunity__c FROM Account WHERE Id IN : accountIds.keySet()];
+        For(Account acc : accountList){
+            acc.High_Value_Opportunity__c = True;
+        }
+		update accountList;
+    }
+}
