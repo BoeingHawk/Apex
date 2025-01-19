@@ -15,7 +15,9 @@ This can only be used for instance methods and member variables. (member variabl
 
 3) public - This means that the method or variable is accessible by all Apex within a specific package.
 
-4) global - This means the method or variable can be used by any Apex code that has access to the class, not just the Apex code in the same application. This access modifier must be used for any method that must be referenced outside of the application, either in SOAP API or by other Apex code. If you declare a method or variable as global, you must also declare the class that contains it as global.
+4) global - This means the method or variable can be used by any Apex code that has access to the class, not just the Apex code in the same application. 
+This access modifier must be used for any method that must be referenced outside of the application, either in SOAP API or by other Apex code. 
+If you declare a method or variable as global, you must also declare the class that contains it as global.
 
 
 
