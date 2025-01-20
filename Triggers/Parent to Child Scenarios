@@ -61,7 +61,7 @@ Trigger AccountTrigger on Account(after update){
 		List<Contact> ContactList = [SELECT Id,OwnerId,AccountId from Contact WHERE AccountId IN : accountIds];
         For(Contact con : ContactList){
             con.OwnerId = Trigger.newMap.get(con.AccountId).OwnerId;
-		        contactList.add(con);
+		        //contactList.add(con);
         }
 	update contactList;
     }
