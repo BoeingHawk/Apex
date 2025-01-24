@@ -3,7 +3,7 @@
 
 
 
-//Update on Chiuld and Update on Parent
+//Update on Child and Update on Parent
 //Whenever the Amount field on an Opportunity is updated to a value greater than 100,000, the Account field High_Value_Opportunity__c (custom checkbox) should be set to true.
 
 
