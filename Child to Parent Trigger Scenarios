@@ -90,3 +90,36 @@ update accountList;
 
 
 */
+
+
+//Update on Child and Update on Parent
+//Whenever the phone field on an Contact is updated, the Sample (custom field) field on Account object should also be updated/checked.
+
+/*
+trigger ContactTrigger on Contact(after Update){
+If(Trigger.isUpdate && Trigger.isAfter){
+Map<Id,Boolean> accountIds = new Map<Id,Boolean>();
+
+	For(Contact con : Trigger.New){
+        If(con.Phone != Trigger.oldMap.get(con.Id).Phone){
+            accountIds.put(con.AccountId,True);
+        }
+    }    
+
+List<Account> accountList = [SELECT Id, Phone FROM Account WHERE Id IN : accountIds.keySet()];
+    For(Account acc : accountList){
+	acc.sample__c = True;
+        
+    }
+
+update accountList;
+
+}
+}
+
+*/
+
+
+
+
+
