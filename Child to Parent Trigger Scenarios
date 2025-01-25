@@ -22,3 +22,37 @@ trigger OpTrigger on Opportunity(after update){
 		update accountList;
     }
 }
+
+
+//Update on Child and Update on Parent
+//Whenever the Description field on an Contact is updated, the Description field on Account object should also be changed.
+
+
+/*
+
+trigger ContactTrigger on Contact (after update) {
+If(trigger.isAfter && trigger.isUpdate){
+Set<Id> accountIds = new Set<Id>();
+Map<Id,String> accountDescriptions = new Map<Id,String>();
+
+for(Contact con : Trigger.new){
+If(con.Description != Trigger.oldMap.get(con.Id).Description){
+accountIds.add(con.AccountId);
+accountDescriptions.put(con.AccountId,con.Description);
+}
+}
+
+List<Account> accountList = [SELECT Id, Description FROM Account WHERE ID IN : accountIds];
+For(Account acc : accountList){
+if (accountDescriptions.containsKey(acc.Id)) {
+acc.Description = accountDescriptions.get(acc.Id);
+} 
+}
+update accountList;
+
+
+}
+}
+
+
+*/
