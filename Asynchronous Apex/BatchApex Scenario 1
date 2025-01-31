@@ -38,4 +38,4 @@ Database.executeBatch(myBatch,200);
 
 
 //Result
-Names of all the accounts were updated with '- Updated via Batch ApexAccountAccount'.
+Names of all the accounts were updated with Account Name + '- Updated via Batch ApexAccountAccount'.
