@@ -1,0 +1,36 @@
+global class BatchClassExplained implements Database.Batchable<sObject>{
+
+/*
+global: access modifier
+class: class keyword
+BatchClassExplained: Name of the class
+
+implements: keyword that tell the class to apply Database.Batchable 
+so The class implements the Batchable interface, which allows it to run as a batch.
+
+<sObject>: Indicates that this batch class will work with any standard/custom Salesforce object.
+*/
+
+
+	//Start Method
+    global Database.QueryLocator start(Database.BatchableContext BC){
+    //Query record to be processed
+
+	return Database.getQueryLocator('SELECT Id, Name FROM Account');    
+    }
+
+
+	//Execute Method
+	
+    global void execute(DataBase.BatchableContext BC, List<sObject> scope){
+        for(Account acc : (List<Account>) scope){
+            acc.Name = acc.Name + ' - Updated via Batch Apex';
+        }
+	update scope;
+    }
+
+	//Finish Method
+    global void finish(Database.BatchableContext BC){
+        System.debug('Batch Process Complete');
+    }
+}
