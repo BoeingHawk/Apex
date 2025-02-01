@@ -1,0 +1,30 @@
+//Batch class used for reverting the changed account names (in the first batch class) back to original/previous values.
+
+// Code is almost the same and a '.replace' function to replace the name to the original/previous values
+
+
+global class MyBatchClass1 implements Database.Batchable<sObject>{
+
+
+	//Start Method
+    global Database.QueryLocator start(Database.BatchableContext BC){
+    //Query record to be processed
+
+	return Database.getQueryLocator('SELECT Id, Name FROM Account');    
+    }
+
+
+	//Execute Method
+	
+    global void execute(DataBase.BatchableContext BC, List<sObject> scope){
+        for(Account acc : (List<Account>) scope){
+            acc.Name = acc.Name.replace('- Updated via Batch ApexAccountAccount','');
+        }
+	update scope;
+    }
+
+	//Finish Method
+    global void finish(Database.BatchableContext BC){
+        System.debug('Batch Process Complete');
+    }
+}
