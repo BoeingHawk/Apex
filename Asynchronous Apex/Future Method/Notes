@@ -1,0 +1,125 @@
+📌 Future Method in Apex
+🔹 What is a Future Method?
+A Future Method in Apex allows you to run a piece of code asynchronously (in the background) after the current transaction completes. This is useful when you need to:
+✅ Perform long-running operations (like calling an external system).
+✅ Avoid governor limits in a synchronous transaction.
+✅ Improve user experience by executing non-urgent tasks later.
+
+
+🔹 How to Declare a Future Method?
+✅ Basic Syntax
+apex
+Copy
+Edit
+global class FutureExample {
+    @future
+    public static void myFutureMethod(String name) {
+        System.debug('Hello, ' + name);
+    }
+}
+
+Key Points:
+✔ @future → Tells Salesforce this method should run asynchronously.
+✔ public static → Must be static because it's called without instantiating the class.
+
+✅ Calling the Future Method
+apex
+Copy
+Edit
+FutureExample.myFutureMethod('Pulkit');
+When this code runs, the method does not execute immediately but is queued in the background.
+
+🔹 When to Use Future Methods?
+You should use a future method when:
+✔ You need to call an external system (API Callout) after the transaction completes.
+✔ You are hitting governor limits in a synchronous transaction.
+✔ You want to process a large amount of data asynchronously.
+
+
+🔹 Example Use Cases
+✅ 1. Performing a Callout After a DML Operation
+Apex does not allow callouts after a DML (Database) operation in a synchronous transaction.
+Using a future method solves this issue.
+
+❌ Without Future Method (Fails)
+apex
+Copy
+Edit
+public class CalloutExample {
+    public static void makeCallout() {
+        insert new Account(Name = 'Test Account'); // DML Operation
+        HttpRequest req = new HttpRequest(); // API Callout
+        // This will FAIL due to mixed DML and callout
+    }
+}
+✅ With Future Method (Works)
+apex
+Copy
+Edit
+global class CalloutExample {
+    @future(callout=true) 
+    public static void makeCallout() {
+        HttpRequest req = new HttpRequest();
+        System.debug('Making API callout...');
+    }
+}
+Here, callout=true allows the method to make an API call.
+
+✅ 2. Processing Large Data Sets
+If a trigger processes too many records, a governor limit error occurs.
+Using future methods helps break up processing.
+
+❌ Trigger Without Future Method (Governor Limit Error)
+apex
+Copy
+Edit
+trigger AccountTrigger on Account (after insert) {
+    for (Account acc : Trigger.new) {
+        acc.Name = acc.Name + ' Updated';
+        update acc; // ❌ Too many DML statements!
+    }
+}
+✅ Trigger Using Future Method (Efficient)
+apex
+Copy
+Edit
+trigger AccountTrigger on Account (after insert) {
+    FutureExample.updateAccounts(Trigger.newMap.keySet());
+}
+
+global class FutureExample {
+    @future
+    public static void updateAccounts(Set<Id> accountIds) {
+        List<Account> accs = [SELECT Id, Name FROM Account WHERE Id IN :accountIds];
+        for (Account acc : accs) {
+            acc.Name += ' Updated';
+        }
+        update accs; // ✅ Processes all records asynchronously
+    }
+}
+🔹 Limitations of Future Methods
+While future methods are powerful, they have some limitations:
+
+🔴 Cannot return values → They must be void.
+🔴 Cannot be called inside another future method (No chaining).
+🔴 Cannot handle complex objects like sObject as parameters → Use Id lists instead.
+🔴 Governor Limits Apply → You can only have 50 future calls per transaction.
+🔴 Cannot use inside Batch Apex → Use Queueable Apex instead.
+
+🔹 Best Practices
+✔ Use future methods only when necessary to avoid hitting limits.
+✔ Pass only IDs or primitive data types as parameters.
+✔ Use Queueable Apex if you need chaining or returning results.
+✔ Monitor future jobs in Setup → Apex Jobs.
+
+🎯 Final Summary
+Feature	Details
+Runs Asynchronously?	✅ Yes
+Can return values?	❌ No
+Can call API Callouts?	✅ Yes (if callout=true)
+Can pass sObject?	❌ No (Pass Id instead)
+Maximum per transaction	❌ 50 Future calls
+Supports Chaining?	❌ No (Use Queueable Apex)
+🚀 Future Methods help run heavy operations asynchronously and avoid governor limits. But for more control (chaining, returning values), Queueable Apex is better!
+
+Let me know if you need further explanation! 😊
