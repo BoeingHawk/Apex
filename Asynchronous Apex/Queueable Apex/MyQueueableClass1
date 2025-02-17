@@ -1,0 +1,29 @@
+//Queueable class to replace the name of all the accounts with their original names in the org by removing '-Updated with Queueable'.
+
+//class declaration
+public class MyQueueableClass1 implements Queueable{
+
+	//execute method declaration
+    public void execute(QueueableContext context){
+    
+	//query to fetch accounts
+	List<Account> accountList = [SELECT Id,Name FROM Account];
+
+	//For loop to iterate over the accountList
+        For(Account acc : accountList){
+            acc.name = acc.name.replace(' - Update with Queueable','');
+        }
+     //update accountList
+	update accountList;
+
+	System.debug('Queueable class updated accounts successfully');
+    }
+
+}
+
+
+
+//Anonymous Window Code to run the class
+
+MyQueueableClass1 myQueue1 = new MyQueueableClass1();
+System.enqueueJob(myQueue1);
