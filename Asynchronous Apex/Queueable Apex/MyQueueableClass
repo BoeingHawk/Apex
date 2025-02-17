@@ -1,22 +1,31 @@
+//Queueable class to update the name of all the accounts in the org by appending '-Updated with Queueable'
+
+
 //class declaration
 public class MyQueueableClass implements Queueable{
 
-
-private List<Id> accountIds;
-
-    public MyQueueableClass(List<Id> accIds){
-        this.accountIds = accIds;
-    }
-
 	//method declaration
     public void execute(QueueableContext Context){
-List<Account> account = [SELECT Id, Name FROM Account WHERE Id IN : accountIds];
-        
-        for(Account acc: accounts){
-            acc.Name = acc.Name + '-Update with Queueable';
+
+	//Query Records to Fetch Accounts
+	List<Account> accountList = [SELECT Id, Name FROM Account];
+       
+ //For loop to iterate over the account list
+    for(Account acc: accountList){
+		acc.Name = acc.Name + ' - Update with Queueable';
         }
-update account;
+//updating the list
+	update accountList;
+
+//post completion statement print to check logs
+	System.debug('Queueable Class running complete');
     }
 
 
 }
+
+
+//Anonymous Window Code
+MyQueueableClass myQueue = new MyQueueableClass();
+System.enqueueJob(myQueue);
+
