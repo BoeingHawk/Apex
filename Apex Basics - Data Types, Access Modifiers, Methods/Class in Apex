@@ -13,7 +13,6 @@ System.debug('name of the dog ='+name);
 
 }
 
-
 //Code to be exectued in anonymous window:
 
 //Create a constructor of the Dog class, so that the value of the instance variable can be printed in the output
