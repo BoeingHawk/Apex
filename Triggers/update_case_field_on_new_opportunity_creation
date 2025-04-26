@@ -1,0 +1,46 @@
+//Trigger Scenario: 
+
+//A opportunity is created via a related list on case record and a field should be updated on the case object
+//(difficult to understand, complexity is increased)
+
+or 
+
+//whenever an opportunity is created, update a field on the case object (Simpe to understand)
+
+
+
+
+
+
+################################# Explanation #################################
+
+
+trigger update_Case_field_on_new_opportunity on Opportunity (after insert) {
+	Set<Id> caseId = new Set<Id>();
+   
+// Step1: check if the related case is not null and add id to set
+ 
+if(Trigger.isInsert){
+        For(Opportunity opp : Trigger.new){
+            if(opp.SDO_Service_Case__c!= null){
+            caseId.add(opp.SDO_Service_Case__c);
+            }
+	}
+
+
+// Step2: Creating a list to store the case that is needed to be updated
+
+	List<Case> caseToUpdate= [SELECT Id, Opp_Created__c FROM Case WHERE Id IN : caseId];
+     
+// Step3: Update the field on the case object
+
+     For(Case c : caseToUpdate){
+         c.Opp_Created__c = true;
+     }
+
+     update caseToUpdate;
+}
+}
+
+
+################################# Explanation #################################
