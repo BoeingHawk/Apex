@@ -8,7 +8,29 @@ or
 //whenever an opportunity is created, update a field on the case object (Simpe to understand)
 
 
+################################# Code #################################
 
+
+trigger update_Case_field_on_new_opportunity on Opportunity (after insert) {
+	Set<Id> caseId = new Set<Id>();
+   
+
+ if(Trigger.isInsert){
+        For(Opportunity opp : Trigger.new){
+            if(opp.SDO_Service_Case__c!= null){
+            caseId.add(opp.SDO_Service_Case__c);
+            }
+	}
+	List<Case> caseToUpdate= [SELECT Id, Opp_Created__c FROM Case WHERE Id IN : caseId];
+     
+     For(Case c : caseToUpdate){
+         c.Opp_Created__c = true;
+     }
+     update caseToUpdate;
+}
+}
+
+################################# Code #################################
 
 
 
