@@ -7,9 +7,7 @@ or
 
 //whenever an opportunity is created, update a field on the case object (Simpe to understand)
 
-
 ################################# Code #################################
-
 
 trigger update_Case_field_on_new_opportunity on Opportunity (after insert) {
 	Set<Id> caseId = new Set<Id>();
