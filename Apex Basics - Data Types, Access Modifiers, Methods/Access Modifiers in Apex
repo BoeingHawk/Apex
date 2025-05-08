@@ -21,5 +21,4 @@ If you declare a method or variable as global, you must also declare the class t
 
 
 
-
 Reference link to official documentation: https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_classes_access_modifiers.htm
