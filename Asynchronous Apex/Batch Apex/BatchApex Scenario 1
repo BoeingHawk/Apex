@@ -39,3 +39,6 @@ Database.executeBatch(myBatch,200);
 
 //Result
 Names of all the accounts were updated with Account Name + '- Updated via Batch ApexAccountAccount'.
+
+
+//add counter to it as well
