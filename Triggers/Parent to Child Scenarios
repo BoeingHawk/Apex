@@ -22,6 +22,7 @@ Trigger AccountTrigger on Account(After insert){
 */
 
 
+
 //Update on Parent and Insert on Child
 //Scenario - If Industry field on account is changed, then a new opportunity should be created
 
