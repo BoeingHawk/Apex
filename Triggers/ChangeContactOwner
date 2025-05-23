@@ -1,0 +1,25 @@
+//Scenario - If Owner field on account is changed, then owner of the related contacts should also be changed
+
+Trigger ChangeContactOwner on Account (after update){
+If(Trigger.isAfter && Trigger.isUpdate){
+Set<Id> AccountIds = new Set<Id>();
+
+For(Account acc : Trigger.new){
+If(acc.OwnerId != Trigger.oldMap.get(acc.Id).OwnerId){
+AccountIds.add(acc.Id);
+}
+
+}
+
+
+List<Contact> conList = [SELECT Id,Name, OwnerId, AccountId FROM Contact WHERE AccountId IN : AccountIds];
+
+For(Contact con : conList){
+con.OwnerId = Trigger.newMap.get(con.AccountId).OwnerId;
+
+}
+update conList;
+
+}
+
+}
