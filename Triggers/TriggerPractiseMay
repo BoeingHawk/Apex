@@ -1,0 +1,25 @@
+//Trigger to create a new opportunity whenever a new account is created
+
+
+trigger newOpp1 on Account (After insert){
+
+if(trigger.isAfter && trigger.isInsert){
+
+List<Opportunity> OppList = new List<Opportunity>();
+
+
+For(Account acc: Trigger.New) {
+Opportunity opp = new Opportunity();
+
+opp.Name = acc.Name + ': New Opportunity';
+opp.StageName = 'Prospecting';
+opp.CloseDate = Date.Today()+30;
+opp.AccountId = acc.Id;
+
+oppList.add(opp);
+}
+insert oppList;
+
+}
+
+}
