@@ -16,7 +16,6 @@ Trigger AccountTrigger on Account(after insert){
 }
 
 
-
 // Trigger to change the Owner of related contacts if the Owner of Account is changed.
 
 trigger AccountTrigger on Account (after update) {
