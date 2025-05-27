@@ -1,0 +1,77 @@
+//opportunity total sum calculate via trigger 
+
+
+ 
+trigger totalOpportunitySumOnAccouts on Opportunity (after Insert, after Update, after Undelete, after Delete)
+
+{
+
+//Set to store Account Ids related to Opportunity
+Set<Id> accIds = new Set<Id>();
+
+
+//Check for all conditions (Insert, Update, Undelete)
+
+if(Trigger.IsInsert || Trigger.IsUpdate || Trigger.IsUndelete)
+{
+For(Opportunity opp : Trigger.New)
+{
+accIds.add(opp.AccountId);
+}
+}
+
+
+//Check for all conditions (Delete)
+
+if(Trigger.IsDelete)
+{
+For(Opportunity opp : Trigger.Old)
+{
+accIds.add(opp.AccountId);
+}
+}
+
+
+//Aggregate Function
+
+List<AggregateResult> groupResults = [
+
+SELECT  AccountId, Sum(Amount) totalOppAmount
+FROM Opportunity
+WHERE AccountId IN : accIds
+GROUP BY  AccountId
+];
+
+
+//Map AccountId to total opportunity amount
+
+Map<Id,Decimal> accountToTotal = new Map<Id,Decimal>();
+For(AggregateResult ar : groupResults)
+{
+accountToTotal.put((Id)ar.get('AccountId'),(Decimal)ar.get('total'));
+}
+
+
+
+//Update the Accounts 
+
+List<Account> accountsToUpdate = new  List<Account>();
+
+// Id accIds
+//Id = Data type, accIds = name of the variable
+
+
+For(Id accId : accIds)
+{
+Decimal total = accountToTotal.containsKey(accId) ? accountToTotal.get(accId) : 0;
+
+
+accountsToUpdate.add(new Account(
+Id = accId,
+Total_Opportunity_Amount__c = total
+));
+}
+
+update accountsToUpdate;
+
+}
