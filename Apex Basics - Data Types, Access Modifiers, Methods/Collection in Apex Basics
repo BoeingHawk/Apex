@@ -1,0 +1,31 @@
+//class declaration
+public class PrintCollections {
+
+//List in Apex
+
+    //method declaration
+    public void printList(){
+
+    //list declaration and initialzation with value assignment
+	  List<String> Names = new List<String>{'Puru','Pulkit'};
+	  System.debug('Name of Students: '+Names);	
+    }
+
+
+// Sets in Apex
+
+    public void printSet(){
+    Set<Integer> Roll_Num = new Set<Integer>{1,2};
+		System.debug('Roll Number of Students: '+ Roll_Num);
+    }
+
+
+
+// Map in Apex
+
+    public void printMap(){
+    Map<String,Integer> Student_Details = new Map<String,Integer>{'Puru' => 1,'Pulkit' => 2};
+    System.debug('Student Details: '+ Student_Details);
+    }
+
+}
