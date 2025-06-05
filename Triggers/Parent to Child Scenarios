@@ -2,6 +2,7 @@
 //Scenario - A new Account is inserted/created then a new opportunity should also be created related to that account
 
 
+
 Trigger AccountTrigger on Account(After insert){
     If(Trigger.isInsert && Trigger.isAfter){
 	List<Opportunity> oppList = new List<Opportunity>();
