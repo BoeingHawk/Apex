@@ -122,6 +122,7 @@ Maximum per transaction	❌ 50 Future calls
 Supports Chaining?	❌ No (Use Queueable Apex)
 🚀 Future Methods help run heavy operations asynchronously and avoid governor limits. But for more control (chaining, returning values), Queueable Apex is better!
 
+
 Let me know if you need further explanation! 😊
 
 
