@@ -8,6 +8,7 @@ When that execute() is complete, a new one is instantiated with the next group o
 
 Finally the finish() method wraps up any loose ends as necessary, like sending a status email.
 
+
 */
 
 global class AccountUpdateBatchJob implements Database.Batchable<sObject>
