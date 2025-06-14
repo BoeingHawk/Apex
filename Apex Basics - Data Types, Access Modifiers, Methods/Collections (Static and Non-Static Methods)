@@ -1,0 +1,48 @@
+public class PrintCollections {
+
+
+public Map<String,Integer> studentDetails = new Map<String,Integer>{'Pulkit' => 1,'Puru' => 2};
+
+
+//static Map declaration
+public static Map<String,Integer> studentDetails = new Map<String,Integer>{'Pulkit' => 1,'Puru' => 2};
+
+
+//method declaration for lists
+public void printList(){
+List<String>  names = new List<String>{'Pulkit','Puru'};
+System.debug('Names: '+ names);
+}
+
+
+//method declaration for Set
+public void printSet(){
+Set<Integer> RollNumber = new Set<Integer>{1,2};
+System.debug('RollNumbers: '+RollNumber);
+}
+
+//method declaration for Map
+
+public void printMap(){
+System.debug('Student Details: '+studentDetails); 
+}
+
+
+//printing keys and values of the map
+
+public void printMapKeysAndValues(){
+System.debug('Map Keys: '+studentDetails.keySet());
+System.debug('Map Values: '+studentDetails.values());    
+}
+
+
+//using the static map for printing keys and values of the map
+
+public static void printMapKeysAndValuesStatic(){
+System.debug('Static Map Keys: '+studentDetails.keySet());
+System.debug('Static Map Values: '+studentDetails.values());    
+}
+
+
+
+}
