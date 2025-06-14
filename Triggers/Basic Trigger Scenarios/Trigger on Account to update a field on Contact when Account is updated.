@@ -1,0 +1,26 @@
+//Create a trigger on Account to update a field on Contact when Account is updated.
+
+// Trigger Context = After Update
+// Questions to clarify - Update should be on the Related Contacts?
+
+// I can ask to interviewer to -> update the Owner of the Account and make the update owner as owner of all the related contacts
+
+Trigger updateContactField on Account(After Update){
+    If(Trigger.isAfter && Trigger.isUpdate){
+	Set<Id> AccountIds = new Set<Id>(); // set to have unique account id
+        For(Account acc : Trigger.New){
+            If(acc.OwnerId != Trigger.oldMap.get(acc.Id).OwnerId){
+				AccountIds.add(acc.Id);    		   
+            }
+        }
+
+
+	List<Contact> conList = [SELECT Id,AccountId,OwnerId FROM Contact WHERE Id IN : AccountIds];
+        For(Contact con: conList){
+            con.OwnerId = Trigger.newMap.get(con.AccountId).OwnerId;            
+        }
+	update conList;
+    }
+
+
+}
