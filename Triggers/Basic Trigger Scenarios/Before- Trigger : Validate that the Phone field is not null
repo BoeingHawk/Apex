@@ -1,0 +1,15 @@
+//Scenario: Validate that the Phone field is not null/empty when a new account is getting created
+
+// Trigger Context = Before Insert
+Trigger checkPhoneOnAccountCreation on Account(before insert){
+    If(Trigger.isBefore && Trigger.isInsert){
+        If(!Trigger.new.isEmpty()){
+            For(Account acc : Trigger.New){
+                if(acc.Phone == Null || acc.Phone == ''){
+                    acc.addError('Phone field can\'t be left null or empty');
+                }
+            }
+        }
+    }
+    
+}
