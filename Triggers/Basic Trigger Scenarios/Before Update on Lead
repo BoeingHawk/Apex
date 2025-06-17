@@ -1,0 +1,16 @@
+//whenever lead is update set status to 'Working-Contacted'
+
+trigger LeadTrigger on Lead (before update) {
+/*
+    if(Trigger.IsBefore && Trigger.IsUpdate){
+        for(Lead leadRecord : Trigger.New){
+            leadRecord.Status = 'Working-Contacted';
+        }
+    }
+
+*/
+
+
+
+
+}
