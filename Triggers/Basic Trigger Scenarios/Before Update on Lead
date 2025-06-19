@@ -11,6 +11,8 @@ trigger LeadTrigger on Lead (before update) {
 */
 
 
+
+
 //Whenever a Lead is updated and Industry is Healthcare, set Lead Source, SIC Code and Primary
 
 if(Trigger.IsBefore && Trigger.IsUpdate){
