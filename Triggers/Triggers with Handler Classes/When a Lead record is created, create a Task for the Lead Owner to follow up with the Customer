@@ -1,0 +1,33 @@
+//trigger code
+
+trigger LeadTrigger on Lead (before update,after insert) {
+    if(trigger.isAfter && trigger.isInsert){
+        LeadTriggerHandler.handleActivitiesAfterInsert(Trigger.New);
+    }
+
+}
+
+
+//trigger handler class code
+
+public class LeadTriggerHandler {
+
+    public static void handleActivitiesAfterInsert(List<Lead> leadRecords){
+	
+    List<Task> taskList = new List<Task>();
+    
+    for(Lead l : leadRecords){
+        Task t = new Task();
+        t.Priority = 'High';
+        t.Subject= 'Follow-up with Customer';
+        t.Description = 'Please do a follow-up with the new lead';
+        t.WhoId = l.Id;
+        t.OwnerId = l.OwnerId;
+        
+        taskList.add(t);
+    }
+    if(!taskList.isEmpty()){
+        insert taskList;
+    }
+    }
+}
