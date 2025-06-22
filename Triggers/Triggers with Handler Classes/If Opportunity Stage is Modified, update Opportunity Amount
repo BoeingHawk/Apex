@@ -1,0 +1,31 @@
+//trigger code
+
+trigger OpportunityTrigger on Opportunity(before update){
+
+ if(Trigger.isBefore && Trigger.IsUpdate){
+        OpportunityTriggerHandler.handleActivitiesBeforeUpdate(Trigger.NEW, Trigger.OldMap);
+        
+    	}	
+}
+
+
+//handler class code
+
+public class OpportunityTriggerHandler {
+public static void handleActivitiesBeforeUpdate(List<Opportunity> newRecords, Map<Id,Opportunity> oldRecords){
+		
+        For(Opportunity newOpp : newRecords){
+            if(oldRecords.get(newOpp.Id).StageName != newOpp.StageName ) {
+            
+            newOpp.OppAmount__c = newOpp.Probability * newOpp.ExpectedRevenue;
+
+            }
+        }
+    }
+}
+
+
+//Explanation: for logic check of StageName field.
+//Since we need to check, whether the Opportunity StageName field has been modified, we will compare old value of the StageName with the new value.
+
+
