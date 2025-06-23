@@ -1,0 +1,23 @@
+//Trigger Code
+trigger AccountTrigger on Account(Before Update){
+    If(Trigger.IsBefore && Trigger.IsUpdate){
+        AccountTriggerHandler.handleActivitiesBeforeUpdate(Trigger.New);
+    }
+    
+}
+
+
+//Acount Trigger Handler Class
+
+
+public class AccountTriggerHandler {
+
+    // If an Account is updated and Ownership is set to Private, do not allow user to save the record
+    public static void handleActivitiesBeforeUpdate(List<Account> newRecords){
+        For(Account acc : newRecords){
+            if(acc.Industry == 'Agriculture' && acc.Type == 'Prospect' && acc.Ownership == 'Private'){
+                acc.OwnerShip.addError('Operation not allowed! Can\'t Set the Ownership Private for Industry as Agriculture and Type as Apparel');
+            }
+        }
+    }
+}
