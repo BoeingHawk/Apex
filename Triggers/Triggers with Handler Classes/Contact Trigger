@@ -1,0 +1,27 @@
+//Contact Trigger Code
+
+trigger ContactTrigger on Contact(before insert){
+
+    if(Trigger.IsBefore && Trigger.IsInsert){
+        
+        ContactTriggerHandler.handleActivitiesBeforeInsert(Trigger.New);
+    }
+             
+}
+
+
+//Contact Trigger Handler Class Code
+
+public class ContactTriggerHandler {
+
+//If Parent Account (Account Id) is not selected while creating a contact, then show error.
+
+    public static void handleActivitiesBeforeInsert(List<Contact> conList){
+        For(Contact con : conList){
+            if(con.AccountId == Null){
+                con.AccountId.addError('Can\'t create a contact without Parent Account');
+            }
+        }
+        
+    }
+}
