@@ -7,7 +7,6 @@ trigger LeadTrigger on Lead (before update,after insert) {
 
 }
 
-
 //trigger handler class code
 
 public class LeadTriggerHandler {
