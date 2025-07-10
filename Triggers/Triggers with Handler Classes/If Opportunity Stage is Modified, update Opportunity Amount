@@ -9,7 +9,6 @@ trigger OpportunityTrigger on Opportunity(before update){
 }
 
 
-
 //handler class code
 
 public class OpportunityTriggerHandler {
